@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ldap_demo</title>
+    <link href="/static/css/bootstrap.css" rel="stylesheet">
+    <link href="/static/css/custom.css" rel="stylesheet">
+
+</head>
+<body>
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">ldap_demo</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href={% url 'django_python3_ldap_auth' %}>django_python3_ldap_auth登录</a></li>
+            <li><a href={% url 'my_ldap_auth' %}>my_ldap_auth登录</a></li>
+
+          </ul>
+{#          <ul class="nav navbar-nav navbar-right">#}
+{#              <li><a href="{% url 'signup' %}">注册</a></li>#}
+{##}
+{#          </ul>#}
+          <ul class="nav navbar-nav navbar-right">
+              {%  if request.user.is_authenticated %}
+              <li class="dropdown">
+                  <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ request.user}} <span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="{% url 'logout_' %}">登出</a></li>
+                  </ul>
+              </li>
+
+              {% else %}
+                  <li>还没登录</li>
+              {% endif %}
+
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div><!--end class container -->
+    </nav>
+    <div class="content">
+    {% block page-container %}
+
+        <p>好么</p>
+    {% endblock %}
+    </div><!--end class content -->
+    <script src="/static/js/jquery-2.2.2.js"></script>
+    <script src="/static/js/bootstrap.js"></script>
+    <script>
+    function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie != '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = jQuery.trim(cookies[i]);
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        var csrftoken = getCookie('csrftoken');
+        function csrfSafeMethod(method) {
+            // these HTTP methods do not require CSRF protection
+            return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+        }
+        $.ajaxSetup({
+            beforeSend: function(xhr, settings) {
+                if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                }
+            }
+        });
+        //end csrf ref
+    {% block js_bottom %}
+
+    {% endblock %}
+    </script>
+</body>
+</html>

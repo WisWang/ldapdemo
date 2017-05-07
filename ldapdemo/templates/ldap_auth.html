@@ -1,0 +1,24 @@
+{% extends 'home.html' %}
+
+    {% block page-container %}
+        {% if request.path == '/django_python3_ldap_auth/' %}
+            <p>django_python3_ldap_auth</p>
+        {% elif request.path == '/my_ldap_auth/' %}
+            <p>my_ldap_auth</p>
+        {% else %}
+            <p>wis</p>
+            <p>{{ request.path }} </p>
+        {% endif %}
+        <form class="form-signin" method="post" action={{ request.path }} style="width:500px;margin:0 auto;margin-top:10%;">
+        {% csrf_token %}
+        <h2 class="form-signin-heading">请登录</h2>
+        <label for="inputEmail" class="sr-only">Email address</label>
+        <input type="text" name="username" id="inputusername" class="form-control" placeholder="用户名" required="" autofocus="">
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input type="password" name="password" id="inputPassword" class="form-control" placeholder="密码" required="">
+        <br>
+        <button class="btn btn-lg btn-primary btn-block" type="submit" >登录</button>
+        <p id="err_msg" style="color:red">{{ err_msg }}</p>
+        </form>
+
+    {% endblock %}
