@@ -1,5 +1,5 @@
 # ldapdemo
-for more details you can see (my blog)[http://www.cnblogs.com/WisWang/p/6820304.html](in Chinese):
+for more details you can see [my blog](http://www.cnblogs.com/WisWang/p/6820304.html)(this blog is in Chinese):
 
 my software version:
 
